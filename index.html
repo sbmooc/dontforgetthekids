@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't forget the kids!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Don't forget the kids!</h1>
+        
+        <div class="admin-panel">
+        <div class="admin-section" id="week-controls" style="display: none;">
+            <h3>Schedule Actions</h3>
+            <div class="form-group">
+                <button onclick="addNextWeek()" class="btn btn-primary" id="add-future-week-btn">Add Future Week</button>
+                <button onclick="removeWeek()" class="btn btn-secondary" id="remove-week-btn">Remove Week</button>
+                <button onclick="shareSchedule()" class="btn btn-secondary" id="share-schedule-btn">Share Schedule</button>
+                <button onclick="resetEverything()" class="btn btn-danger" id="reset-btn">Reset All</button>
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Children</h3>
+            <div class="form-group">
+                <input type="text" id="child-name" placeholder="Enter child's name" class="input-field">
+                <button onclick="addChild()" class="btn btn-primary">Add Child</button>
+            </div>
+            <div id="children-list" class="list-container"></div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Schedule Settings</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="default-dropoff">Default Drop-off Time:</label>
+                    <input type="time" id="default-dropoff" class="input-field" value="08:30">
+                </div>
+                <div class="form-group">
+                    <label for="default-pickup">Default Pick-up Time:</label>
+                    <input type="time" id="default-pickup" class="input-field" value="15:30">
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Adults</h3>
+            <div class="form-group">
+                <input type="text" id="adult-name" placeholder="Enter adult's name" class="input-field">
+                <button onclick="addAdult()" class="btn btn-primary">Add Adult</button>
+            </div>
+            <div id="adults-list" class="list-container"></div>
+        </div>
+
+        <div class="admin-section">
+            <button onclick="createTable()" class="btn btn-primary" id="create-table-btn">Create Schedule Table</button>
+        </div>
+    </div>
+    
+    <table id="schedule-table" style="display: none;">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody id="schedule-tbody">
+            <tr>
+                <td rowspan="2" class="day-label" data-day="monday">Monday</td>
+                <td class="time-type" data-time-type="dropoff">Drop Off</td>
+            </tr>
+            <tr>
+                <td class="time-type" data-time-type="pickup">Pick Up</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="day-label" data-day="tuesday">Tuesday</td>
+                <td class="time-type" data-time-type="dropoff">Drop Off</td>
+            </tr>
+            <tr>
+                <td class="time-type" data-time-type="pickup">Pick Up</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="day-label" data-day="wednesday">Wednesday</td>
+                <td class="time-type" data-time-type="dropoff">Drop Off</td>
+            </tr>
+            <tr>
+                <td class="time-type" data-time-type="pickup">Pick Up</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="day-label" data-day="thursday">Thursday</td>
+                <td class="time-type" data-time-type="dropoff">Drop Off</td>
+            </tr>
+            <tr>
+                <td class="time-type" data-time-type="pickup">Pick Up</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="day-label" data-day="friday">Friday</td>
+                <td class="time-type" data-time-type="dropoff">Drop Off</td>
+            </tr>
+            <tr>
+                <td class="time-type" data-time-type="pickup">Pick Up</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚠️ Error</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">An error occurred.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🗑️ Confirm Reset</h3>
+                <span class="modal-close" onclick="closeConfirmModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to reset everything? This will clear all children, adults, and schedule data. This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeConfirmModal()" class="btn btn-secondary">Cancel</button>
+                <button onclick="confirmReset()" class="btn btn-danger">Reset All</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
