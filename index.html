@@ -11,16 +11,6 @@
         <h1>Don't forget the kids!</h1>
         
         <div class="admin-panel">
-        <div class="admin-section" id="week-controls" style="display: none;">
-            <h3>Schedule Actions</h3>
-            <div class="form-group">
-                <button onclick="addNextWeek()" class="btn btn-primary" id="add-future-week-btn">Add Future Week</button>
-                <button onclick="removeWeek()" class="btn btn-secondary" id="remove-week-btn">Remove Week</button>
-                <button onclick="shareSchedule()" class="btn btn-secondary" id="share-schedule-btn">Share Schedule</button>
-                <button onclick="resetEverything()" class="btn btn-danger" id="reset-btn">Reset All</button>
-            </div>
-        </div>
-        
         <div class="admin-section">
             <h3>Children</h3>
             <div class="form-group">
@@ -57,8 +47,14 @@
             <div id="adults-list" class="list-container"></div>
         </div>
 
-        <div class="admin-section">
-            <button onclick="createTable()" class="btn btn-primary" id="create-table-btn">Create Schedule Table</button>
+        <div class="admin-section" id="week-controls" style="display: none;">
+            <h3>Schedule Actions</h3>
+            <div class="form-group">
+                <button onclick="addNextWeek()" class="btn btn-primary" id="add-future-week-btn">Add Future Week</button>
+                <button onclick="removeWeek()" class="btn btn-secondary" id="remove-week-btn">Remove Week</button>
+                <button onclick="shareSchedule()" class="btn btn-secondary" id="share-schedule-btn">Share Schedule</button>
+                <button onclick="resetEverything()" class="btn btn-danger" id="reset-btn">Reset All</button>
+            </div>
         </div>
     </div>
     
