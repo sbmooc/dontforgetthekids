@@ -464,24 +464,43 @@ function removeAdult(adultId) {
 
 function addEmail(adultId) {
     const emailInput = document.querySelector(`#email-input-${adultId}`);
-    const email = emailInput.value.trim();
+    const emailsInput = emailInput.value.trim();
     
-    if (email === '') {
-        showErrorModal('Please enter an email address');
+    if (emailsInput === '') {
+        showErrorModal('Please enter one or more email addresses');
         return;
     }
     
-    if (!isValidEmail(email)) {
-        showErrorModal('Please enter a valid email address');
+    // Split by comma and clean up each email
+    const emailList = emailsInput.split(',').map(email => email.trim()).filter(email => email !== '');
+    
+    if (emailList.length === 0) {
+        showErrorModal('Please enter one or more email addresses');
+        return;
+    }
+    
+    // Validate all emails first
+    const invalidEmails = emailList.filter(email => !isValidEmail(email));
+    if (invalidEmails.length > 0) {
+        showErrorModal(`Invalid email address(es): ${invalidEmails.join(', ')}`);
         return;
     }
     
     const adult = adults.find(a => a.id === adultId);
-    if (adult && !adult.emails.includes(email)) {
-        adult.emails.push(email);
-        emailInput.value = '';
-        renderAdults();
-        debouncedUpdateURL();
+    if (adult) {
+        let addedCount = 0;
+        emailList.forEach(email => {
+            if (!adult.emails.includes(email)) {
+                adult.emails.push(email);
+                addedCount++;
+            }
+        });
+        
+        if (addedCount > 0) {
+            emailInput.value = '';
+            renderAdults();
+            debouncedUpdateURL();
+        }
     }
 }
 
@@ -519,8 +538,8 @@ function renderAdults() {
                 <div class="list-item-name">${adult.name}</div>
                 <div class="email-list">${emailTags}</div>
                 <div class="add-email-form">
-                    <input type="email" id="email-input-${adult.id}" placeholder="Add email address" class="input-field">
-                    <button data-adult-id="${adult.id}" class="btn btn-secondary add-email-btn">Add Email</button>
+                    <input type="text" id="email-input-${adult.id}" placeholder="Add email addresses (comma-separated)" class="input-field">
+                    <button data-adult-id="${adult.id}" class="btn btn-secondary add-email-btn">Add Emails</button>
                 </div>
             </div>
             <button data-adult-id="${adult.id}" class="remove-adult-btn remove-x">×</button>
